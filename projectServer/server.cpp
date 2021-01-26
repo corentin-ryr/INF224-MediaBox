@@ -39,7 +39,13 @@ int main(int argc, char* argv[])
     manager->show("Group Name");
 
 
-    manager->erase("image");
+    //manager->eraseMedia("image");
+    cout << film.use_count() << endl;
+
+    manager->eraseGroup("Group Name");
+    group.reset();
+
+    cout << film.use_count() << endl;
 
 
 

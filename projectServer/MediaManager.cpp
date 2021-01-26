@@ -30,7 +30,7 @@ weak_ptr<Film> MediaManager::createFilm(const string& name, const string& pathNa
     return film;
 }
 
-weak_ptr<Group> MediaManager::createGroup(const string& name) {
+shared_ptr<Group> MediaManager::createGroup(const string& name) {
     shared_ptr<Group> group (new Group(name));    
     this->groupMap[group->getName()] = group;
     return group;
@@ -92,7 +92,7 @@ void MediaManager::playMedia(const string& name) {
     }
 }
 
-void MediaManager::erase(const string& name) {
+void MediaManager::eraseMedia(const string& name) {
     //Reference to the media to erase
     shared_ptr<Media> mediaToErase = this->searchMedia(name);
     
@@ -105,7 +105,22 @@ void MediaManager::erase(const string& name) {
         shared_ptr<Group> group = it->second;
         group->remove(mediaToErase);
     }
+}
 
+
+void MediaManager::eraseGroup(const string& name) {
+    //Reference to the media to erase
+    //shared_ptr<Group> groupToErase = this->searchGroup(name);
+    
+    // //We erase every occurence of the media in the groups
+    // for (auto it = groupToErase.begin(); it != groupToErase.end(); it++)
+    // {
+    //     shared_ptr<Media> mediaToRemove = it->second;
+    //     reset(mediaToRemove);
+    // }
+
+    // //We erase every occurence of the media in the media map
+    groupMap.erase(name);
 }
 
 

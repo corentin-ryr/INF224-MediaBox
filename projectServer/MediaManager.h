@@ -32,7 +32,8 @@ public:
     void show(const string& name);
     void playMedia(const string& name);
 
-    void erase(const string& name);
+    void eraseMedia(const string& name);
+    void eraseGroup(const string& name);
 };
 
 
