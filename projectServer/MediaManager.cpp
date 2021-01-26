@@ -12,7 +12,7 @@ MediaManager::~MediaManager()
 
 
 #pragma region Creation of media/group
-shared_ptr<Image> MediaManager::createImage(const string& name, const string& pathName, int width, int height) {
+weak_ptr<Image> MediaManager::createImage(const string& name, const string& pathName, int width, int height) {
     shared_ptr<Image> image (new Image(name, pathName, width, height));
     this->mediaMap[name] = image;
     return image;

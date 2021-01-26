@@ -24,13 +24,13 @@ int main(int argc, char* argv[])
 {
     MediaManager * manager = new MediaManager();
 
-    shared_ptr<Image> image = manager->createImage("image", "/home/corentin/Documents/inf224/assets/image.png", 100, 200);
+    weak_ptr<Image> image = manager->createImage("image", "/home/corentin/Documents/inf224/assets/image.png", 100, 200);
     float durations [2] = {10, 20};
     shared_ptr<Film> film = manager->createFilm("film", "path",  durations, 2);
 
     shared_ptr<Group> group = manager->createGroup("Group Name");
     group->push_front(film);
-    group->push_front(image);
+    group->push_front(shared_ptr<Image>(image));
 
     cout << "\n Show the image : \n";
     manager->show("image");
