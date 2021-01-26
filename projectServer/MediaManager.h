@@ -22,8 +22,8 @@ public:
     ~MediaManager();
 
     weak_ptr<Image> createImage(const string& name, const string& pathName, int width, int height);
-    shared_ptr<Video> createVideo(const string& name, const string& pathName, int duration);
-    shared_ptr<Film> createFilm(const string& name, const string& pathName, float* durations, int nbOfChapters);
+    weak_ptr<Video> createVideo(const string& name, const string& pathName, int duration);
+    weak_ptr<Film> createFilm(const string& name, const string& pathName, float* durations, int nbOfChapters);
     shared_ptr<Group> createGroup(const string& name);
 
     shared_ptr<Media> searchMedia (const string& name);
@@ -34,10 +34,6 @@ public:
 
     void erase(const string& name);
 };
-
-
-
-
 
 
 

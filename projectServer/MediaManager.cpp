@@ -18,19 +18,19 @@ weak_ptr<Image> MediaManager::createImage(const string& name, const string& path
     return image;
 }
 
-shared_ptr<Video> MediaManager::createVideo(const string& name, const string& pathName, int duration) {
+weak_ptr<Video> MediaManager::createVideo(const string& name, const string& pathName, int duration) {
     shared_ptr<Video> video (new Video(name, pathName, duration));
     this->mediaMap[name] = video;
     return video;
 }
 
-shared_ptr<Film> MediaManager::createFilm(const string& name, const string& pathName, float* durations, int nbOfChapters) {
+weak_ptr<Film> MediaManager::createFilm(const string& name, const string& pathName, float* durations, int nbOfChapters) {
     shared_ptr<Film> film (new Film(name, pathName, durations, nbOfChapters));
     this->mediaMap[name] = film;
     return film;
 }
 
-shared_ptr<Group> MediaManager::createGroup(const string& name) {
+weak_ptr<Group> MediaManager::createGroup(const string& name) {
     shared_ptr<Group> group (new Group(name));    
     this->groupMap[group->getName()] = group;
     return group;
@@ -42,7 +42,6 @@ shared_ptr<Group> MediaManager::createGroup(const string& name) {
 shared_ptr<Media> MediaManager::searchMedia(const string& name) {
     map<string, shared_ptr<Media>>::iterator it = this->mediaMap.find(name);
 
-    cout << "TEST SEARCH " << it->second.use_count() << endl;
     if (it != mediaMap.end())
     {
         return it->second;
@@ -95,24 +94,17 @@ void MediaManager::playMedia(const string& name) {
 
 void MediaManager::erase(const string& name) {
     //Reference to the media to erase
-    //shared_ptr<Media> mediaToErase = this->searchMedia(name);
-    auto it2 = this->mediaMap.find(name);
-
-    cout << "count " << it2->second.use_count() << endl;
+    shared_ptr<Media> mediaToErase = this->searchMedia(name);
     
     //We erase every occurence of the media in the media map
     mediaMap.erase(name);
     
-    cout << "count " << it2->second.use_count() << endl;
     //We erase every occurence of the media in the groups
     for (auto it = groupMap.begin(); it != groupMap.end(); it++)
     {
         shared_ptr<Group> group = it->second;
-        group->remove(it2->second);
+        group->remove(mediaToErase);
     }
-
-    cout << "count " << it2->second.use_count() << endl;
-    (it2->second).reset();
 
 }
 
