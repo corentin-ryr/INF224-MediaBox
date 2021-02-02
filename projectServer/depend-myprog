@@ -1,6 +1,0 @@
-main.o: main.cpp Video.h Media.h Film.h Image.h Group.h MediaManager.h
-Media.o: Media.cpp Media.h
-Film.o: Film.cpp Film.h Video.h Media.h
-Group.o: Group.cpp Group.h Media.h
-MediaManager.o: MediaManager.cpp MediaManager.h Group.h Media.h Image.h \
- Video.h Film.h
