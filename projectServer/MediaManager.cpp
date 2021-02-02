@@ -30,7 +30,7 @@ weak_ptr<Film> MediaManager::createFilm(const string& name, const string& pathNa
     return film;
 }
 
-shared_ptr<Group> MediaManager::createGroup(const string& name) {
+weak_ptr<Group> MediaManager::createGroup(const string& name) {
     shared_ptr<Group> group (new Group(name));    
     this->groupMap[group->getName()] = group;
     return group;
@@ -61,21 +61,21 @@ shared_ptr<Group> MediaManager::searchGroup(const string& name) {
 
 
 
-void MediaManager::show(const string& name) {
+void MediaManager::show(ostream &out, const string& name) {
     shared_ptr<Media> media = this->searchMedia(name);
     shared_ptr<Group> group = this->searchGroup(name);
 
     if (media)
     {
-        media->show(cout);
+        media->show(out);
     }   
     else if(group)
     {
-        group->show(cout);
+        group->show(out);
     }
     else 
     {
-        cout << "No media were found" << endl;
+        out << "No media were found" << endl;
     }
         
 }
@@ -109,18 +109,7 @@ void MediaManager::eraseMedia(const string& name) {
 
 
 void MediaManager::eraseGroup(const string& name) {
-    //Reference to the media to erase
-    //shared_ptr<Group> groupToErase = this->searchGroup(name);
-    
-    // //We erase every occurence of the media in the groups
-    // for (auto it = groupToErase.begin(); it != groupToErase.end(); it++)
-    // {
-    //     shared_ptr<Media> mediaToRemove = it->second;
-    //     reset(mediaToRemove);
-    // }
-
-    // //We erase every occurence of the media in the media map
-    groupMap.erase(name);
+    groupMap.erase(name); //Erasing the group will call its destructor which in turn call the destructor of all its media (no need to iterate the group)
 }
 
 
