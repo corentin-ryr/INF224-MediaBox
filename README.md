@@ -37,3 +37,6 @@ Pour cela, on met les constructeurs de chaque objet multimédia (images, video, 
 On fait de même pour la classe Group.
 
 ## Partie Java Swing
+
+Lorsque l'on clique plusieurs fois sur le bouton, du texte est ajouté au JTextArea jusqu'a ce que celui-ci depasse du cadre. C'est problematique car la lecture n'est pas possible.
+On a deux solution pour cela, on ajoute une ScrollPane pour que des barres de scroll apparaissent lorsque le cadre est depassé. On ajoute aussi "setLineWrap" pour revenir automatiquement a la ligne quand on arrive au bout de la fenêtre.
