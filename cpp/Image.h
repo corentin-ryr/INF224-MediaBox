@@ -37,7 +37,7 @@ public:
     };
 
     void play() const override {
-        string argument = "imagej " + this->getPathName() + " &";
+        string argument = "gimp " + this->getPathName() + " &";
         system(argument.c_str());
     }
 };

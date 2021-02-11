@@ -24,8 +24,8 @@ int main(int argc, char* argv[])
 {
     MediaManager * manager = new MediaManager();
 
-    weak_ptr<Image> image = manager->createImage("image", "/home/corentin/Documents/inf224/assets/image.png", 100, 200);
-    weak_ptr<Image> image2 = manager->createImage("image2", "/home/corentin/Documents/inf224/assets/image.png", 50, 60);
+    weak_ptr<Image> image = manager->createImage("image", "/home/corentin/Projets/inf224/assets/image.png", 100, 200);
+    weak_ptr<Image> image2 = manager->createImage("image2", "/home/corentin/Projets/inf224/assets/image.png", 50, 60);
     float durations [2] = {10, 20};
     weak_ptr<Film> film = manager->createFilm("film", "path",  durations, 2);
 
@@ -65,9 +65,14 @@ int main(int argc, char* argv[])
             manager->show(ssResponse, name);
 
             response = ssResponse.str();
-            response.erase(remove(response.begin(), response.end(), '\n'), response.end());
+            replace(response.begin(), response.end(), '\n', ' ');
         }
-        
+
+        if (action == "play")
+        {
+            manager->playMedia(name);
+            response = "Media is playing";
+        }
 
         cout << response << endl;
         // return false would close the connecytion with the client
