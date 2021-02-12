@@ -16,9 +16,8 @@ CLISERV=cliserv
 #
 # Fichiers sources (NE PAS METTRE les .h ni les .o mais seulement les .cpp)
 #
-CLIENT_SOURCES=client.cpp ccsocket.cpp 
 SERVER_SOURCES=server.cpp tcpserver.cpp ccsocket.cpp Media.cpp Film.cpp Group.cpp MediaManager.cpp
-CLISERV_SOURCES=client.cpp server.cpp tcpserver.cpp ccsocket.cpp 
+CLISERV_SOURCES=server.cpp tcpserver.cpp ccsocket.cpp 
 #
 # Fichiers objets (ne pas modifier, sauf si l'extension n'est pas .cpp)
 #
@@ -56,16 +55,11 @@ LDLIBS= -lpthread
 # depend-${PROG} sera un fichier contenant les dependances
 #
 
-all: ${CLIENT} ${SERVER}
+all: ${SERVER}
 
-run-${SERVER}: ${SERVER}
+run: ${SERVER}
 	./${SERVER}
 
-run-${CLIENT}: ${CLIENT}
-	./${CLIENT}
-
-${CLIENT}: depend-${CLIENT} ${CLIENT_OBJETS}
-	${CXX} -o $@ ${CXXFLAGS} ${LDFLAGS} ${CLIENT_OBJETS} ${LDLIBS}
 
 ${SERVER}: depend-${SERVER} ${SERVER_OBJETS}
 	${CXX} -o $@ ${CXXFLAGS} ${LDFLAGS} ${SERVER_OBJETS} ${LDLIBS}
@@ -82,9 +76,6 @@ tar:
 # Gestion des dependances : creation automatique des dependances en utilisant 
 # l'option -MM de g++ (attention tous les compilateurs n'ont pas cette option)
 #
-depend-${CLIENT}:
-	${CXX} ${CXXFLAGS} -MM ${CLIENT_SOURCES} > depend-${CLIENT}
-
 depend-${SERVER}:
 	${CXX} ${CXXFLAGS} -MM ${SERVER_SOURCES} > depend-${SERVER}
 
@@ -109,5 +100,4 @@ depend-${SERVER}:
 #
 # Inclusion du fichier des dependances
 #
--include depend-${CLIENT}
 -include depend-${SERVER}

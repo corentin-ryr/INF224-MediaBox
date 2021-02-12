@@ -1,12 +1,19 @@
 #include "Film.h"
 
 
-
+/**
+ * @brief Construct a new Film object
+ * 
+ * @param name 
+ * @param pathName Path to the video file
+ * @param durations Duration of the film in seconds
+ * @param nbOfChapters 
+ */
 Film::Film(const string& name, const string& pathName, float* durations, int nbOfChapters) : Video(name, pathName, 0)
 {
 
     delete [] this->durations;
-    this->durations = new float [nbOfChapters]; //TODO faire la copie proprement
+    this->durations = new float [nbOfChapters];
     for (int i = 0; i < nbOfChapters; i++)
     {
         this->durations[i] = durations[i];

@@ -60,7 +60,12 @@ shared_ptr<Group> MediaManager::searchGroup(const string& name) {
 #pragma endregion
 
 
-
+/**
+ * @brief Show the media or group corresponding to the name in the specified output stream.
+ * 
+ * @param out 
+ * @param name 
+ */
 void MediaManager::show(ostream &out, const string& name) {
     shared_ptr<Media> media = this->searchMedia(name);
     shared_ptr<Group> group = this->searchGroup(name);
@@ -80,6 +85,11 @@ void MediaManager::show(ostream &out, const string& name) {
         
 }
 
+/**
+ * @brief Play the media correspsonding to the name in the correct application
+ * 
+ * @param name 
+ */
 void MediaManager::playMedia(const string& name) {
     shared_ptr<Media> media = this->searchMedia(name);
     if (media)
@@ -92,6 +102,11 @@ void MediaManager::playMedia(const string& name) {
     }
 }
 
+/**
+ * @brief Delete the media from all the groups and from the list of media
+ * 
+ * @param name Name on the media to delete.
+ */
 void MediaManager::eraseMedia(const string& name) {
     //Reference to the media to erase
     shared_ptr<Media> mediaToErase = this->searchMedia(name);
@@ -107,7 +122,11 @@ void MediaManager::eraseMedia(const string& name) {
     }
 }
 
-
+/**
+ * @brief Delete the specified group
+ * 
+ * @param name 
+ */
 void MediaManager::eraseGroup(const string& name) {
     groupMap.erase(name); //Erasing the group will call its destructor which in turn call the destructor of all its media (no need to iterate the group)
 }
